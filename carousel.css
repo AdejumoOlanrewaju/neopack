@@ -1,0 +1,74 @@
+.carousel-container{
+    overflow: hidden;
+}
+
+.carousel{
+    width : 100%;
+    height : 100%;
+}
+
+.carousel-item{
+    width : 100%;
+}
+
+.active-dot{
+    background-color : red;
+}
+
+.prev1{
+    animation : prev1 .5s ease forwards;
+}
+
+.prev2{
+    animation : prev2 .5s ease forwards;
+}
+
+.next1{
+    animation  : next1 .5s ease forwards;
+}
+
+.next2{
+    animation  : next2 .5s ease forwards;
+}
+
+
+@keyframes prev1 {
+    0%{
+        transform : translateX(0) 
+    }
+
+    100%{
+        transform : translateX(100%) 
+    }
+}
+
+@keyframes prev2 {
+    0%{
+        transform : translateX(-100%) 
+    }
+
+    100%{
+        transform : translateX(0) 
+    }
+}
+
+@keyframes next1 {
+    0%{
+        transform :translateX(0) 
+    }
+
+    100%{
+        transform :translateX(-100%) 
+    }
+}
+
+
+@keyframes next2{
+    0%{
+        transform :translateX(100%) 
+    }
+
+    100%{
+        transform :translateX(0)
+    }
+}
