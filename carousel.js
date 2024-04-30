@@ -40,21 +40,16 @@ class CarouselSuper{
         // <!----- function to bring in the next image -------------->
 
         if(this.counter <= this.carouselItems.length - 1){
-            this.carouselItems[this.counter].classList.add("next1")
-            if(this.carouselItems[this.counter].classList.contains("next2")){
-                this.carouselItems[this.counter].classList.remove("next2")
-            }
-    
+            this.carouselItems[this.counter].style.animation = "next1 .5s ease forwards"
+            
             if(this.counter >= this.carouselItems.length - 1){
                 this.counter = 0
             }else{
                 this.counter++
             }
 
-            this.carouselItems[this.counter].classList.add("next2")
-            if(this.carouselItems[this.counter].classList.contains("next1")){
-                this.carouselItems[this.counter].classList.remove("next1")
-            }
+            this.carouselItems[this.counter].style.animation = "next2 .5s ease forwards"
+
             this.slideactiveDots(this.counter)
         }
 
@@ -66,12 +61,8 @@ class CarouselSuper{
         // <!----- This is to bring in the previous image -------------->
 
         if(this.counter <= this.carouselItems.length - 1){
-            this.carouselItems[this.counter].classList.replace("next2", "prev1")
-            
-            this.carouselItems[this.counter].classList.add("prev1")
-            if(this.carouselItems[this.counter].classList.contains("prev2")){
-                this.carouselItems[this.counter].classList.remove("prev2")
-            }
+            this.carouselItems[this.counter].style.animation = "prev1 .5s ease forwards"
+        
 
             if(this.counter <= 0){
                 this.counter = this.carouselItems.length - 1
@@ -79,11 +70,8 @@ class CarouselSuper{
                 this.counter--
             }
 
-            this.carouselItems[this.counter].classList.replace("next1", "prev2")
-            this.carouselItems[this.counter].classList.add("prev2")
-            if(this.carouselItems[this.counter].classList.contains("prev1")){
-                this.carouselItems[this.counter].classList.remove("prev1")
-            }
+            this.carouselItems[this.counter].style.animation = "prev2 .5s ease forwards"
+           
             this.slideactiveDots(this.counter)
         }
 
@@ -111,13 +99,17 @@ class CarouselSuper{
         if(index <= this.carouselItems.length - 1){
             if (targetIndex > this.counter){
                 this.carouselItems[this.counter].style.animation = "next1 .5s ease forwards"
+                
                 this.counter = targetIndex
+            
                 this.carouselItems[targetIndex].style.animation = "next2 .5s ease forwards"
             }else if(targetIndex == this.counter) {
                 return
             }else{
                 this.carouselItems[this.counter].style.animation = "prev1 .5s ease forwards"
+
                 this.counter = targetIndex
+            
                 this.carouselItems[targetIndex].style.animation = "prev2 .5s ease forwards"
             }
         }else{
@@ -248,5 +240,3 @@ class CarouselSuper{
 }
 
 // export default CarouselSuper
-
-
