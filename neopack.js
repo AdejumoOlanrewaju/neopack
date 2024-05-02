@@ -268,26 +268,28 @@ class AccordionSuper{
 
 class TestimonialSuper{
     constructor(){
-        this.reviewContainer = document.querySelector("review-card-container")
+        this.reviewContainer = document.querySelectorAll("review-card-container")
         this.nextBtn = document.querySelectorAll("next-review-btn")
         this.prevBtn = document.querySelectorAll("prev-review-btn")
-        this.reviewContainerWidth =  this.reviewContainer.clientWidth
-        this.reviewContainerScrollX = Math.ceil(this.reviewContainer.scrollLeft)
+        // this.reviewContainerWidth =  this.reviewContainer.forEach(el => el.clientWidth)
+        // this.reviewContainerScrollX = Math.ceil(this.reviewContainer.scrollLeft)
     }
 
     moveReviewBtn(){
-        this.nextBtn.addEventListener("click", this.nextReview)
-        this.prevBtn.addEventListener("click", this.prevReview)
+        this.nextBtn.forEach(el => el.addEventListener("click", () => this.nextReview()))
+        this.prevBtn.forEach(el => el.addEventListener("click", () => this.prevReview()))
     }
 
     nextReview(){
-        let nextReviewPosition = this.reviewContainerScrollX += this.reviewContainerWidth
-        this.reviewContainer.scrollLeft = nextReviewPosition
+        this.reviewContainer.forEach(el => {
+            let nextReviewPosition = el.scrollLeft += el.clientWidth
+            el.scrollLeft = nextReviewPosition
+        })
     } 
 
     prevReview(){
-        let prevReviewPosition = this.reviewContainerScrollX -= this.reviewContainerWidth
-        this.reviewContainer.scrollLeft = prevReviewPosition
+        // let prevReviewPosition = this.reviewContainerScrollX -= this.reviewContainerWidth
+        // this.reviewContainer.scrollLeft = prevReviewPosition
     } 
 
     start(){
@@ -340,7 +342,7 @@ class IntersectionSuper{
 
 class navSuper{
     constructor(){
-        
+
     }
 }
 
