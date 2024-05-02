@@ -268,9 +268,9 @@ class AccordionSuper{
 
 class TestimonialSuper{
     constructor(){
-        this.reviewContainer = document.querySelectorAll("review-card-container")
-        this.nextBtn = document.querySelectorAll("next-review-btn")
-        this.prevBtn = document.querySelectorAll("prev-review-btn")
+        this.reviewContainer = document.querySelectorAll(".review-card-container")
+        this.nextBtn = document.querySelectorAll(".next-review-btn")
+        this.prevBtn = document.querySelectorAll(".prev-review-btn")
         // this.reviewContainerWidth =  this.reviewContainer.forEach(el => el.clientWidth)
         // this.reviewContainerScrollX = Math.ceil(this.reviewContainer.scrollLeft)
     }
@@ -301,11 +301,11 @@ class TestimonialSuper{
 
 class IntersectionSuper{
     constructor(){
-        this.slideLeft = document.querySelectorAll("neo-slide-left")
-        this.slideRight = document.querySelectorAll("neo-slide-right")
-        this.slideUp = document.querySelectorAll("neo-slide-up")
-        this.slideDown = document.querySelectorAll("neo-slide-down")
-        this.scaleUp = document.querySelectorAll("neo-scale-up")
+        this.slideLeft = document.querySelectorAll(".neo-slide-left")
+        this.slideRight = document.querySelectorAll(".neo-slide-right")
+        this.slideUp = document.querySelectorAll(".neo-slide-up")
+        this.slideDown = document.querySelectorAll(".neo-slide-down")
+        this.scaleUp = document.querySelectorAll(".neo-scale-up")
     }
 
     animateElement(elem, prevClass, anim){
