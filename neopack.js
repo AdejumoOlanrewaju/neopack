@@ -282,46 +282,88 @@ class TestimonialSuper{
 
     nextReview(){
         this.reviewContainer.forEach(el => {
-            let nextReviewPosition = el.scrollLeft += el.clientWidth
+            let nextReviewPosition = el.scrollLeft + el.clientWidth
             el.scrollLeft = nextReviewPosition
         })
     } 
 
     prevReview(){
-        // let prevReviewPosition = this.reviewContainerScrollX -= this.reviewContainerWidth
-        // this.reviewContainer.scrollLeft = prevReviewPosition
+        this.reviewContainer.forEach(el => {
+            let nextReviewPosition = el.scrollLeft - el.clientWidth
+            el.scrollLeft = nextReviewPosition
+        })
     } 
+
+
 
     start(){
         this.moveReviewBtn()
     }
 }
 
+new TestimonialSuper().start()
+
 // export default TestimonialSuper
 
 class IntersectionSuper{
     constructor(){
-        this.slideLeft = document.querySelectorAll(".neo-slide-left")
-        this.slideRight = document.querySelectorAll(".neo-slide-right")
-        this.slideUp = document.querySelectorAll(".neo-slide-up")
-        this.slideDown = document.querySelectorAll(".neo-slide-down")
-        this.scaleUp = document.querySelectorAll(".neo-scale-up")
+        this.multiplier = 2
+        this.animations = [
+            {
+                element : document.querySelectorAll(".neo-slide-left"),
+                prevClass : "neo-slide-left",
+                animClass : "neo-anim-left",
+                delayMultiplier : this.multiplier 
+            },
+            {
+                element : document.querySelectorAll(".neo-slide-right"),
+                prevClass : "neo-slide-right",
+                animClass : "neo-anim-right",
+                delayMultiplier : (this.multiplier - 1)
+            },
+            {
+                element : document.querySelectorAll(".neo-slide-up"),
+                prevClass : "neo-slide-up",
+                animClass : "neo-anim-up",
+                delayMultiplier : this.multiplier
+            },
+            {
+                element : document.querySelectorAll(".neo-slide-down"),
+                prevClass : "neo-slide-down",
+                animClass : "neo-anim-down",
+                delayMultiplier : this.multiplier
+            },
+            {
+                element : document.querySelectorAll(".neo-scale-up"),
+                prevClass : "neo-scale-up",
+                animClass : "neo-anim-scale",
+                delayMultiplier : this.multiplier
+            },
+        ]
+        // this.slideLeft = document.querySelectorAll(".neo-slide-left")
+        // this.slideRight = document.querySelectorAll(".neo-slide-right")
+        // this.slideUp = document.querySelectorAll(".neo-slide-up")
+        // this.slideDown = document.querySelectorAll(".neo-slide-down")
+        // this.scaleUp = document.querySelectorAll(".neo-scale-up")
     }
 
-    animateElement(elem, prevClass, anim){
+    animateElement(elem, prevClass, anim, delayMultiplier){
         let options = {
             root : null,
             rootMargin : "0px",
-            threshold : 0.2
+            threshold : 0.9
         }
 
         let callback = (entries, observer) => {
             entries.forEach(entry => {
-            if(entry.isIntersecting){
-                htmlElements.forEach(el => {
-                    el.classList.replace(prevClass, anim)
-                })
-            }
+                if(entry.isIntersecting){
+                    elem.forEach((el, index) => {
+                        console.log(el, index)
+                        let delay = index == 0 ? 0 + ((index + 1) / delayMultiplier) : 1 + ((index) / delayMultiplier)
+                        el.style.animationDelay = `${delay}s`
+                        el.classList.replace(prevClass, anim)
+                    })
+                }
             }) 
         }
 
@@ -333,12 +375,13 @@ class IntersectionSuper{
 }
 
     start(){
-        this.animateElement(this.slideLeft, "neo-slide-left", "neo-anim-left")
-        this.animateElement(this.slideRight, "neo-slide-right", "neo-anim-right")
-        this.animateElement(this.slideUp, "neo-slide-up", "neo-anim-up")
-        this.animateElement(this.slideDown, "neo-slide-down", "neo-anim-down")
+        this.animations.forEach(animObj => {
+            this.animateElement(animObj.element, animObj.prevClass, animObj.animClass, animObj.delayMultiplier)
+        })
     }
 }
+
+new IntersectionSuper().start()
 
 class navSuper{
     constructor(){
