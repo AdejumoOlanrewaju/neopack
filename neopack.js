@@ -301,7 +301,7 @@ class TestimonialSuper{
     }
 }
 
-new TestimonialSuper().start()
+
 
 // export default TestimonialSuper
 
@@ -381,7 +381,7 @@ class IntersectionSuper{
     }
 }
 
-new IntersectionSuper().start()
+
 
 class navSuper{
     constructor(){
