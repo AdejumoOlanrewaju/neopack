@@ -110,50 +110,66 @@
 
 @keyframes slideleft{
     0% {
-      transform: translateX(-40px);
-      opacity : 0;
+        transform: translateX(-40px);
+        opacity : 0;
     }
-  
-  
-    100%{
-      opacity : 1;
-      transform: translateX(0px);
-    }
-  }
-  
-  @keyframes slideright {
-    0% {
-      transform: translateX(40px);
-      opacity : 0;
-    }
-  
-  
-    100%{
-      opacity : 1;
-      transform: translateX(0px);
-    }
-  }
-  
-  @keyframes slideup{
-    from {
-      opacity : 0;
-      transform : translateY(40px)
-    }
-  
-    to{
-      opacity : 1;
-      transform : translateY(0)
-    }
-  }
 
-  @keyframes slidedown{
-    from {
-      opacity : 0;
-      transform : translateY(-40px)
+
+    100%{
+        opacity : 1;
+        transform: translateX(0px);
     }
+}
   
-    to{
-      opacity : 1;
-      transform : translateY(0)
+@keyframes slideright {
+    0% {
+        transform: translateX(40px);
+        opacity : 0;
     }
-  }
+
+
+    100%{
+        opacity : 1;
+        transform: translateX(0px);
+    }
+}
+  
+@keyframes slideup{
+    from {
+        opacity : 0;
+        transform : translateY(40px)
+    }
+
+    to{
+        opacity : 1;
+        transform : translateY(0)
+    }
+}
+
+@keyframes slidedown{
+    from {
+        opacity : 0;
+        transform : translateY(-40px)
+    }
+
+    to{
+        opacity : 1;
+        transform : translateY(0)
+    }
+}
+
+.neo-mobile-nav_down{
+    max-height : 0;
+    overflow-y : hidden;
+    /* visibility: hidden; */
+    padding : 0;
+    margin: 0;
+    transition: max-height .5s ease, padding .5s ease, margin .5s ease;
+
+}
+
+.neo-close-mobile-nav_down{
+    /* visibility:visible; */
+    max-height : 200px;
+    overflow-y: auto;
+}

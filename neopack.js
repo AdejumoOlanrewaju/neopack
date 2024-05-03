@@ -302,47 +302,48 @@ class TestimonialSuper{
 }
 
 new TestimonialSuper().start()
+
 // export default TestimonialSuper
 
 class IntersectionSuper{
     constructor(){
-        this.multiplier = 2
-        this.animations = [
-            {
-                element : document.querySelectorAll(".neo-slide-left"),
-                prevClass : "neo-slide-left",
-                animClass : "neo-anim-left",
-                delayMultiplier : this.multiplier 
-            },
-            {
-                element : document.querySelectorAll(".neo-slide-right"),
-                prevClass : "neo-slide-right",
-                animClass : "neo-anim-right",
-                delayMultiplier : (this.multiplier - 1)
-            },
-            {
-                element : document.querySelectorAll(".neo-slide-up"),
-                prevClass : "neo-slide-up",
-                animClass : "neo-anim-up",
-                delayMultiplier : this.multiplier
-            },
-            {
-                element : document.querySelectorAll(".neo-slide-down"),
-                prevClass : "neo-slide-down",
-                animClass : "neo-anim-down",
-                delayMultiplier : this.multiplier
-            },
-            {
-                element : document.querySelectorAll(".neo-scale-up"),
-                prevClass : "neo-scale-up",
-                animClass : "neo-anim-scale",
-                delayMultiplier : this.multiplier
-            },
-        ]
-        // this.slideLeft = document.querySelectorAll(".neo-slide-left")
-        // this.slideRight = document.querySelectorAll(".neo-slide-right")
-        // this.slideUp = document.querySelectorAll(".neo-slide-up")
-        // this.slideDown = document.querySelectorAll(".neo-slide-down")
+        // this.multiplier = 2
+        // this.animations = [
+        //     {
+        //         element : document.querySelectorAll(".neo-slide-left"),
+        //         prevClass : "neo-slide-left",
+        //         animClass : "neo-anim-left",
+        //         delayMultiplier : this.multiplier 
+        //     },
+        //     {
+        //         element : document.querySelectorAll(".neo-slide-right"),
+        //         prevClass : "neo-slide-right",
+        //         animClass : "neo-anim-right",
+        //         delayMultiplier : (this.multiplier - 1)
+        //     },
+        //     {
+        //         element : document.querySelectorAll(".neo-slide-up"),
+        //         prevClass : "neo-slide-up",
+        //         animClass : "neo-anim-up",
+        //         delayMultiplier : this.multiplier
+        //     },
+        //     {
+        //         element : document.querySelectorAll(".neo-slide-down"),
+        //         prevClass : "neo-slide-down",
+        //         animClass : "neo-anim-down",
+        //         delayMultiplier : this.multiplier
+        //     },
+        //     {
+        //         element : document.querySelectorAll(".neo-scale-up"),
+        //         prevClass : "neo-scale-up",
+        //         animClass : "neo-anim-scale",
+        //         delayMultiplier : this.multiplier
+        //     },
+        // ]
+        this.slideLeft = document.querySelectorAll(".neo-slide-left")
+        this.slideRight = document.querySelectorAll(".neo-slide-right")
+        this.slideUp = document.querySelectorAll(".neo-slide-up")
+        this.slideDown = document.querySelectorAll(".neo-slide-down")
         // this.scaleUp = document.querySelectorAll(".neo-scale-up")
     }
 
@@ -354,14 +355,18 @@ class IntersectionSuper{
         }
 
         let callback = (entries, observer) => {
-            entries.forEach(entry => {
+            let fixedDelay = 0.5
+            let maximumDelay = 2
+            entries.forEach((entry, index) => {
                 if(entry.isIntersecting){
-                    elem.forEach((el, index) => {
-                        console.log(el, index)
-                        let delay = index == 0 ? 0 + ((index + 1) / delayMultiplier) : 1 + ((index) / delayMultiplier)
-                        el.style.animationDelay = `${delay}s`
-                        el.classList.replace(prevClass, anim)
-                    })
+                    if(entry.target.nextElementSibling && entry.target.nextElementSibling.className.includes("neo-anim")){
+                            console.log("has anim sibling")
+                            console.log(entries, index)
+                            let delayIndex = index == 0 ? fixedDelay : index * fixedDelay
+                            let delay = Math.min(delayIndex, maximumDelay)
+                            entry.target.nextElementSibling.style.animationDelay = `${delay}s`
+                    }
+                    entry.target.classList.replace(prevClass, anim)
                 }
             }) 
         }
@@ -374,9 +379,14 @@ class IntersectionSuper{
 }
 
     start(){
-        this.animations.forEach(animObj => {
-            this.animateElement(animObj.element, animObj.prevClass, animObj.animClass, animObj.delayMultiplier)
-        })
+        // this.animations.forEach(animObj => {
+        //     this.animateElement(animObj.element, animObj.prevClass, animObj.animClass, animObj.delayMultiplier)
+        // })
+
+        this.animateElement(this.slideLeft, "neo-slide-left", "neo-anim-left", 2)
+        this.animateElement(this.slideRight, "neo-slide-right", "neo-anim-right", 2)
+        this.animateElement(this.slideUp, "neo-slide-up", "neo-anim-up", 2)
+        this.animateElement(this.slideDown, "neo-slide-down", "neo-anim-down", 2)
     }
 }
 
@@ -384,8 +394,77 @@ new IntersectionSuper().start()
 
 class navSuper{
     constructor(){
+        this.hamburger = document.querySelectorAll(".neo-hamburger")
+    }
+
+    hamburgerClick(){
+        this.hamburger.forEach(el => {
+            el.addEventListener('click', () => {
+                this.navDown()
+                this.navLeft()
+                this.navRight()
+            })
+        })
+    }
+
+    navDown(){
+        this.mobileNavDown = document.querySelectorAll(".neo-mobile-nav_down")
+        if(this.mobileNavDown){
+            console.log(this.mobileNavDown)
+            this.mobileNavDown.forEach(el => el.classList.toggle("neo-close-mobile-nav_down"))
+            // this.mobileNavDown.forEach(el => el.classList.remove("neo-mobile-nav_down"))
+        
+        }
+    }
+
+    navLeft(){
+        this.mobileNavLeft = document.querySelectorAll(".neo-mobile-nav_left")
+        
+        if(this.mobileNavLeft){
+            this.mobileNavLeft.forEach(el => el.classList.replace("neo-mobile-nav_left", "neo-close-mobile-nav_left"))
+
+        }
+    }
+
+    navRight(){
+        this.mobileNavRight = document.querySelectorAll(".neo-mobile-nav_right")
+
+        if(this.mobileNavRight){
+            this.mobileNavRight.forEach(el => el.classList.replace("neo-mobile-nav_right", "neo-close-mobile-nav_right"))
+        }
+    }
+
+    start(){
+        this.hamburgerClick()
+    }
+}
+
+new navSuper().start()
+
+class PopupSuper{
+    constructor(){
 
     }
 }
+
+// export default IntersectionSuper
+
+// class navSuper{
+//     constructor(){
+
+//     }
+// }
+
+// this.mobileNavDown = document.querySelectorAll(".neo-mobile-nav_down")
+// this.mobileNavLeft = document.querySelectorAll(".neo-mobile-nav_left")
+// this.mobileNavRight = document.querySelectorAll(".neo-mobile-nav_right")
+
+// if(this.mobileNavDown){
+//     this.hamburger.addEventListener('click', () => this.navUp())
+// }else if(this.mobileNavLeft){
+//     this.hamburger.addEventListener('click', () => this.navUp())
+// }else if(this.mobileNavRight){
+//     this.hamburger.addEventListener('click', () => this.navUp())
+// }
 
 // export default IntersectionSuper
